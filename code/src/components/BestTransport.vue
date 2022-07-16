@@ -108,8 +108,8 @@ export default {
       // returns the index of the date array referring to the lowest price and fastest shipping
       var lowestPriceIndex = -1
       var fastShippingIndex = -1
-      var lowestPrice = 999.9
-      var fastShipping = 999.9
+      var lowestPrice = Number.MAX_VALUE
+      var fastShipping = Number.MAX_VALUE
       var i = 0
       if (this.city != '' && this.weight > 0) {
         for (const dt of this.api_data) {
@@ -147,7 +147,7 @@ export default {
     
     getCostTotal(transport) {
       if (this.weight > this.heavy) {
-        return transport.cost_transport_heavy.slice(2) * this.weight
+        return (transport.cost_transport_heavy.slice(2) * this.weight).toFixed(2)
       }
       return (transport.cost_transport_light.slice(2) * this.weight).toFixed(2)
     },
@@ -193,17 +193,6 @@ export default {
 
 <style scoped>
 
-body{
-    background-color: #F0F8FF;
-    font-family: sans-serif;
-    font-size: 1em;
-    color: #59429d;
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-top: 2%;
-    justify-content: center;
-}
-
 .title .navbar {
   background-color: #00aca6 !important;
   
@@ -233,16 +222,19 @@ body{
 }
 
 .content {
-  justify-content: center;
-  margin-left: 40%;
+  margin : auto;
+  margin-top: 10px;
+  min-width: 300px;
+  max-width: 800px;
+  min-height: 800px;
   padding-top: 1cm;
-}
-
-
-label {
-  font-family: sans-serif;
-  font-size: 1em;
-  color: #000000;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: top;
+  flex-direction: column;
+  text-align: center;
+  background-color: antiquewhite;
+  border-radius: 10px;
 }
 
 input, select, button {
@@ -260,7 +252,8 @@ input, select, button {
   border-radius: 5px;
   border-width: 1px;
   background: #E4E6F5;
-  width: 15cm;
+  margin-right: 5%;
+  margin-left: 5%;
   padding: 5px;
 }
 
@@ -275,8 +268,9 @@ input, select {
     font-size: 1.2em;
     background: #00aca6;
     border: 0;
-    margin-bottom: 1em;
-    margin-top: 0.85cm;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 5%;
     color: #ffffff;
     padding: 0.2em 0.6em;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
@@ -293,12 +287,14 @@ input, select {
     cursor: pointer;
 }
 
-.multiple option{
-   height: 30px;
+label {
+  font-family: sans-serif;
+  font-size: 1em;
+  color: #000000;
 }
+
 .result {
-  margin-top: 10%;
-  text-align: left;
+  margin-top: 5%;
   display: none;
 }
 
