@@ -50,6 +50,8 @@ import {
   BNavbarBrand,
 } from 'bootstrap-vue'
 
+import axios from 'axios'
+
 export default {
   components: {
     BNavbar,
@@ -57,22 +59,33 @@ export default {
   },
   data() {
     const appName = ''
-    const api_data = []
     return {
       appName,
-      api_data,
+      api_data:undefined,
     }
   },
   created() {
     // Implemente aqui o GET dos dados da API REST
     // para que isso ocorra na inicialização da pagina
     this.appName = 'MELHOR FRETE'
+    axios.get("http://localhost:3000/transport").then((response) => {
+      this.api_data = response.data
+      this.initializeSelect()
+    })
   },
   
   methods: {
     // Implemente aqui os metodos utilizados na pagina
     methodFoo() {
       console.log(this.appName)
+    },
+
+    initializeSelect() {
+      var options = "<option>Selecione aqui o destino do frete</option>";
+      for(const dt of  this.api_data){
+        options += "<option>"+ dt.city +"</option>";
+      }
+      document.getElementById("city").innerHTML = options;
     }
 
   },
