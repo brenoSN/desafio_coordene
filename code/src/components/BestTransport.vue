@@ -81,9 +81,13 @@ export default {
     },
 
     initializeSelect() {
+      var cities = new Set()
       var options = "<option>Selecione aqui o destino do frete</option>";
       for(const dt of  this.api_data){
-        options += "<option>"+ dt.city +"</option>";
+        cities.add(dt.city)
+      }
+      for (const city of cities) {
+        options += "<option>"+ city +"</option>";
       }
       document.getElementById("city").innerHTML = options;
     }
