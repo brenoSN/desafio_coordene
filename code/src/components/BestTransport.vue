@@ -94,8 +94,9 @@ export default {
     onAnalyseClicked() {
       var select = document.getElementById("city")
       var weightElement = document.getElementById("weight")
-      
+      var container = document.querySelector('.result')
       if (select && select.selectedIndex > 0 && weightElement) {
+        container.style.display = 'block';
         this.weight = parseFloat(weightElement.value)
         this.city = select.options[select.selectedIndex].text
         var result = this.analyse()
@@ -297,7 +298,8 @@ input, select {
 }
 .result {
   margin-top: 10%;
-  text-align: left 
+  text-align: left;
+  display: none;
 }
 
 </style>
